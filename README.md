@@ -3,6 +3,7 @@
 This is a single HTML file chatbot** built with HTML, CSS, and JavaScript combined in one code.
 
 How to Run ??
+
 1)Download index.html
 
 2)Open it in any browser (Chrome, Firefox, Edge).
