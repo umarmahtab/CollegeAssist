@@ -1,6 +1,6 @@
 # CollegeAssist
 
-This is a single HTML file chatbot** built with HTML, CSS, and JavaScript combined in one code.
+This is a single HTML file ChatBot built with HTML, CSS, and JavaScript combined in One Code.
 
 How to Run ??
 
