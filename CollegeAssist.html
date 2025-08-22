@@ -1,5 +1,6 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,24 +16,22 @@
 
       /* Background image (BG.jpg) with overlay that fades image -> white -> blue */
       background:
-        linear-gradient(
-          to bottom,
-          rgba(255,255,255,0.8) 0%,
-          rgba(255,255,255,0.8) 40%,
-          rgba(255,255,255,1) 60%,
-          rgba(58,123,213,0.9) 100%
-        ),
+        linear-gradient(to bottom,
+          rgba(255, 255, 255, 0.8) 30%,
+          rgba(255, 255, 255, 0.8) 100%,
+          rgba(255, 255, 255, 1) 20%,
+          rgba(58, 123, 213, 0.9) 100%),
         url("BG.jpg") center center / cover no-repeat fixed;
-        
-
-    height: 100vh;
-    overflow: hidden;
 
 
-    background-size: 100% auto;
-    background-position: center 5%;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+      height: 100vh;
+      overflow: hidden;
+
+
+      background-size: 100% auto;
+      background-position: center 5%;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     /* Floating Bot Button */
@@ -82,8 +81,15 @@
       transition: transform 0.1s;
     }
 
-    .eye.left { left: 12px; top: 16px; }
-    .eye.right { right: 12px; top: 16px; }
+    .eye.left {
+      left: 12px;
+      top: 16px;
+    }
+
+    .eye.right {
+      right: 12px;
+      top: 16px;
+    }
 
     /* Chat Window */
     #chatbot-container {
@@ -95,7 +101,7 @@
       background: rgba(255, 255, 255, 0.97);
       backdrop-filter: blur(15px);
       border-radius: 18px;
-      box-shadow: 0 16px 45px rgba(0,0,0,0.25);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.25);
       display: none;
       flex-direction: column;
       overflow: hidden;
@@ -105,8 +111,15 @@
     }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     #chat-header {
@@ -117,7 +130,7 @@
       font-size: 20px;
       font-weight: 600;
       letter-spacing: 0.5px;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     #chat-messages {
@@ -156,8 +169,15 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     #chat-input {
@@ -193,6 +213,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Floating Bot Button -->
   <div id="chatbot-button">
@@ -219,12 +240,26 @@
     const userInput = document.getElementById("user-input");
     const chatMessages = document.getElementById("chat-messages");
 
-    const apiKey = "API KEY HERE";
+    const apiKey = "YourAPIKEY";
 
     // Toggle Chat
     botButton.addEventListener("click", () => {
       chatContainer.style.display = chatContainer.style.display === "flex" ? "none" : "flex";
     });
+
+    function showTyping() {
+      const typingDiv = document.createElement("div");
+      typingDiv.className = "message bot-message";
+      typingDiv.textContent = "Typing...";
+      typingDiv.id = "typing-indicator";
+      chatMessages.appendChild(typingDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function hideTyping() {
+      const typingDiv = document.getElementById("typing-indicator");
+      if (typingDiv) typingDiv.remove();
+    }
+
 
     // Send Message
     function sendMessage() {
@@ -235,13 +270,73 @@
 
       // Custom hardcoded responses
       if (msg.toLowerCase().includes("hello")) {
-        addMessage("Yo! Welcome to CollegeAssist 😎", "bot");
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage("Yo, your College Assist here!🤟", "bot");
+        }, 1500); // 1.5 sec delay
+
         return;
       }
+      if (msg.toLowerCase().includes("hi")) {
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage("Hi there buddy!😎", "bot");
+        }, 1500); // 1.5 sec delay
+
+        return;
+      }
+
       if (msg.toLowerCase().includes("bye")) {
-        addMessage("See ya later 👋 Don't forget to stay awesome!", "bot");
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage("Bye, cya later 👋, also dont forget to stay awesome", "bot");
+        }, 1500); // 1.5 sec delay
+
         return;
       }
+
+      if (msg.toLowerCase().includes("about")) {
+        showTyping();
+        setTimeout(() => {
+          hideTyping();
+          addMessage("Here is the quick info about our college", "bot");
+        }, 20); // 1.5 sec delay
+
+        // Create a clickable link
+        const link = document.createElement("a");
+        link.href = "borchure.pdf"; // path to your file
+        link.textContent = "Download your Brochure";
+        link.target = "_blank"; // opens in new tab
+
+        const div = document.createElement("div");
+        div.className = "message bot-message";
+        div.appendChild(link);
+
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return;
+      }
+      if (msg.toLowerCase().includes("fees")) {
+        addMessage("Here’s the fees structure of SRM GZB fyi👇: ", "bot");
+
+        // Create a clickable link
+        const link = document.createElement("a");
+        link.href = "fees.pdf"; // path to your file
+        link.textContent = "Download Fees Structure";
+        link.target = "_blank"; // opens in new tab
+
+        const div = document.createElement("div");
+        div.className = "message bot-message";
+        div.appendChild(link);
+
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return;
+      }
+
 
       fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
         method: "POST",
@@ -259,14 +354,14 @@
           ]
         })
       })
-      .then(response => response.json())
-      .then(data => {
-        const botReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn’t understand that.";
-        addMessage(botReply, "bot");
-      })
-      .catch(() => {
-        addMessage("Oops! Something went wrong. Try again!", "bot");
-      });
+        .then(response => response.json())
+        .then(data => {
+          const botReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn’t understand that.";
+          addMessage(botReply, "bot");
+        })
+        .catch(() => {
+          addMessage("Oops! Something went wrong. Try again!", "bot");
+        });
     }
 
     sendBtn.addEventListener("click", sendMessage);
@@ -354,4 +449,5 @@
     });
   </script>
 </body>
+
 </html>
